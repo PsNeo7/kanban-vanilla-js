@@ -1,0 +1,27 @@
+body {
+    /* background-color: yellow; */
+}
+
+.main-table-area {
+    display: flex;
+    justify-content: space-around;
+}
+
+.task-table {
+    /* background-color: black;
+    color: white; */
+    border: 1px solid black;
+    width: 200px;
+    padding: 10px;
+}
+
+.heading {
+    text-align: center;
+    border: 1px solid black;
+    padding: 0;
+    margin: 0;
+}
+
+.task {
+    padding: 10px 0px;
+}
