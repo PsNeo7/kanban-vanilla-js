@@ -11,8 +11,9 @@ body {
     /* background-color: black;
     color: white; */
     border: 1px solid black;
-    width: 200px;
+    width: 300px;
     padding: 10px;
+    background-color: pink;
 }
 
 .heading {
@@ -23,5 +24,8 @@ body {
 }
 
 .task {
+    background-color: white;
     padding: 10px 0px;
+    border: 1px solid black;
+    margin: 5px;
 }

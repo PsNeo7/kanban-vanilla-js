@@ -100,7 +100,7 @@ function addTaskToTable(tableID) {
 
 
 function createTableInnerHTML(table) {
-    table_inner_HTML = `<div class="task-table" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+    table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
     <div class="heading"><span>${table.name}</span> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
     `
     tasks = ""
@@ -130,6 +130,7 @@ function allowDrop(e) {
 function drop(e) {
     e.preventDefault();
     data = JSON.parse(e.dataTransfer.getData("text"))
+    console.log(e.target);
     current_data = e.target.dataset
     console.log(data, current_data.tableNumber);
     transferData = null
