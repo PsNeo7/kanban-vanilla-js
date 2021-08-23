@@ -31,6 +31,7 @@ function render() {
     mainTables.forEach(element => {
         table = document.createElement("DIV")
         table.innerHTML = createTableInnerHTML(element)
+        table.dataset.tableNumber = element.id
         main_table_area.append(table)
     });
 }
