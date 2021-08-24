@@ -1,29 +1,81 @@
 main_table_area = document.getElementById("main-table-area")
+add_table_button = document.getElementById("add-table-button")
+tableCounter = 0
 
-mainTables = [
-    {
-        name: "Todo",
-        id: 1,
-        tasks: [
-            {
-                desc: "Hi"
-            }
-        ]
-    },
-    {
-        name: "Done",
-        id: 2,
-        tasks: [
-            {
-                desc: "Hello"
-            }
-        ]
+add_table_button.addEventListener('click', (e) => {
+    newTablePrompt()
+})
+
+createNewTable = () => {
+    tableName = prompt('Enter New Table Name')
+    if (tableName) {
+        addNewTable(tableName)
     }
-]
+}
+
+addNewMainTable = (tableName) => {
+    mainTables.push(new MainTable(tableName, newTableId(), []))
+    render()
+}
+
+function newTableId() {
+    tableCounter += 1
+    return tableCounter
+}
+
+class MainTable {
+    constructor(name = "noName", id = newTableId(), tasks = []) {
+        this.name = name
+        this.id = id
+        this.tasks = tasks
+    }
+
+    setProperty(property, value) {
+        if (this.property) {
+            this.property = value
+        }
+    }
+}
+
+mainTables = []
+
+mainTables.push(new MainTable("todo", newTableId(), [{
+    desc: "Hi"
+}]))
+
+mainTables.push(new MainTable("Done", newTableId(), [{
+    desc: "Hello"
+}]))
+
+mainTables.push(new MainTable("grooming"))
+
+// mainTables.push(new MainTable("Done", newTableId(), []))
+// mainTables = [
+//     {
+//         name: "Todo",
+//         id: 1,
+//         tasks: [
+//             {
+//                 desc: "Hi"
+//             }
+//         ]
+//     },
+//     {
+//         name: "Done",
+//         id: 2,
+//         tasks: [
+//             {
+//                 desc: "Hello"
+//             }
+//         ]
+//     }
+// ]
 
 // .forEach(element => {
 //     // class="task-table" 
 // });
+
+
 
 function render() {
     console.log("render being called", mainTables);
@@ -51,7 +103,25 @@ main_table_area.addEventListener("click", (e) => {
     if (e.target.dataset.type == "del-task-button") {
         delTaskInTable(e.target.parentNode.dataset.tableNumber, e.target.parentNode.dataset.taskIndex)
     }
+
+    if (e.target.dataset.type == "edit-table-button") {
+        editTable(e.target.dataset.tableNumber)
+        // editTable(e.target.parentNode)
+    }
 })
+
+function editTable(tableID) {
+    console.log("reaached editTable", tableID);
+    mainTables.forEach(table => {
+        if (table.id == tableID) {
+            tableName = prompt("Edit table name", table.name)
+            if (tableName) {
+                table.name = tableName
+                render()
+            }
+        }
+    });
+}
 
 function delTaskInTable(tableID, taskID) {
     mainTables.forEach(table => {
@@ -111,17 +181,11 @@ function createTableInnerHTML(table) {
          </div>`
     })
     table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <div class="heading"><span>${table.name}</span> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
+    <div data-table-number="${table.id}" class="heading"><span>${table.name}</span> <button data-table-number="${table.id}" data-type="edit-table-button">Edit Name</button> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
     ${tasks}
     </div>`
-    // table_inner_HTML += tasks + 
+
     return table_inner_HTML
-    // +
-    //     <div class="task">
-    //         <span class="desc">${desc}</span>
-    //         <button>Edit</button> <button>Delete</button>
-    //     </div>
-    // </div>`
 }
 
 render()
