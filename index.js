@@ -101,9 +101,7 @@ function addTaskToTable(tableID) {
 
 
 function createTableInnerHTML(table) {
-    table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <div class="heading"><span>${table.name}</span> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
-    `
+
     tasks = ""
     table.tasks.forEach((element, index) => {
         tasks += `
@@ -112,7 +110,11 @@ function createTableInnerHTML(table) {
              <button data-type="edit-task-button">Edit</button> <button data-type="del-task-button">Delete</button>
          </div>`
     })
-    table_inner_HTML += tasks + "</div>"
+    table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="heading"><span>${table.name}</span> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
+    ${tasks}
+    </div>`
+    // table_inner_HTML += tasks + 
     return table_inner_HTML
     // +
     //     <div class="task">
