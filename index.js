@@ -92,7 +92,10 @@ function render() {
 main_table_area.addEventListener("click", (e) => {
     // console.log(e.target.parentNode.dataset);
     if (e.target.dataset.type == "add-task-button") {
-        addTaskToTable(e.target.dataset.tableNumber)
+        newTodo = prompt("Enter Todo")
+        if (newTodo) {
+            addTaskToTable(e.target.dataset.tableNumber, { desc: newTodo })
+        }
     }
 
     if (e.target.dataset.type == "edit-task-button") {
@@ -152,23 +155,17 @@ function editTaskInTable(tableID, taskID) {
     });
 }
 
-function addTaskToTable(tableID) {
+function addTaskToTable(tableID, newTodo) {
     // console.log(tableID);
-    newTodo = prompt("Enter Todo")
-    if (newTodo) {
-        mainTables.forEach(table => {
-            if (table.id == tableID) {
-                table.tasks.push({
-                    desc: newTodo
-                })
-                // table.tasks = [...table.tasks, { desc: newTodo }]
-            }
-        });
-    }
+    mainTables.forEach(table => {
+        if (table.id == tableID) {
+            table.tasks.push(newTodo)
+            // table.tasks = [...table.tasks, { desc: newTodo }]
+        }
+    });
     render()
     // maintabl
 }
-
 
 function createTableInnerHTML(table) {
 
@@ -180,7 +177,7 @@ function createTableInnerHTML(table) {
              <button data-type="edit-task-button">Edit</button> <button data-type="del-task-button">Delete</button>
          </div>`
     })
-    table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+    table_inner_HTML = `<div class="task-table" data-table-number="${table.id}" ondragstart="drag(event)" touchstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
     <div data-table-number="${table.id}" class="heading"><span>${table.name}</span> <button data-table-number="${table.id}" data-type="edit-table-button">Edit Name</button> <button data-type="add-task-button" data-table-number="${table.id}">+</button></div>
     ${tasks}
     </div>`
@@ -197,40 +194,23 @@ function allowDrop(e) {
 function drop(e) {
     e.preventDefault();
     data = JSON.parse(e.dataTransfer.getData("text"))
-    console.log(e.target);
+    // console.log(e.target);
     current_data = e.target.dataset
-    console.log(data, current_data.tableNumber);
+    // console.log(data, current_data.tableNumber);
     transferData = null
+
     mainTables.forEach(table => {
         if (table.id == data.tableNumber) {
             table.tasks.forEach((task, index) => {
                 if (index == data.taskIndex) {
                     transferData = task
-                    // console.log(task, index);
-                    table.tasks.splice(index, 1)
-                    // console.log(table.tasks);
-                    render()
+                    delTaskInTable(data.tableNumber, data.taskIndex)
                 }
             });
         }
     });
 
-    mainTables.forEach(table => {
-        if (table.id == current_data.tableNumber) {
-            // table.tasks.forEach((task, index) => {
-            //     if (index == taskIndex) {
-            //         transferData = 
-            //         table.tasks.split(index, 1)
-            //     }
-            // });
-            table.tasks.push(transferData)
-            render()
-        }
-    });
-
-
-    // JSON.stringify
-    // render()
+    addTaskToTable(current_data.tableNumber, transferData)
 }
 
 function drag(e) {
