@@ -14,14 +14,23 @@ body {
     border: 1px solid black;
     width: 300px;
     padding: 10px;
-    background-color: pink;
+    background-color: yellow;
+    min-height: 200px;
+    margin: 10px;
 }
 
 .heading {
     text-align: center;
     border: 1px solid black;
-    padding: 0;
+    padding: 5px;
     margin: 0;
+    background-color: deepskyblue;
+}
+
+.heading .title{
+    text-decoration: underline;
+    text-transform: capitalize;
+
 }
 
 .task {
@@ -29,4 +38,12 @@ body {
     padding: 10px 0px;
     border: 1px solid black;
     margin: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    word-break: break-all;
+}
+
+.task .options{
+    flex-basis: 3;
 }
