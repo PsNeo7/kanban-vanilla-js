@@ -8,11 +8,16 @@ add_table_button.addEventListener('click', (e) => {
 })
 
 reset_data_button.addEventListener('click', (e) => {
+    resetLocalData()
+    render()
+})
+
+function resetLocalData() {
     mainTables = defaultValues
     console.log("clicking remoce data");
     localStorage.removeItem("data")
     setStateToLocal()
-})
+}
 
 createNewTable = () => {
     tableName = prompt('Enter New Table Name')
@@ -206,14 +211,12 @@ function createTableInnerHTML(table, tableIndex) {
              <span class="options" data-table-ID="${table.id}" data-table-number="${tableIndex}" data-task-index="${index}">
                 <button data-table-ID="${table.id}" 
                     data-task-index="${index}" 
-                    data-table-number="${tableIndex}" 
                     data-type="edit-task-button">Edit
                 </button> 
 
                 <button 
                     data-table-ID="${table.id}" 
                     data-task-index="${index}" 
-                    data-table-number="${tableIndex}" 
                     data-type="del-task-button">Delete
                 </button>
              </span>
@@ -228,20 +231,16 @@ function createTableInnerHTML(table, tableIndex) {
         <div data-table-number="${tableIndex}" class="heading">
         
             <h1 data-table-ID="${table.id}" 
-            data-table-number="${tableIndex}" 
             class="title">${table.name}</h1> 
 
-            <button data-table-ID="${table.id}" 
-            data-table-number="${tableIndex}" 
+            <button data-table-ID="${table.id}"
             data-type="edit-table-button">Edit Name</button> 
 
-            <button data-table-ID="${table.id}" 
-            data-table-number="${tableIndex}" 
+            <button data-table-ID="${table.id}"
             data-type="delete-table-button">Delete Table</button> 
 
             <button data-type="add-task-button" 
-            data-table-ID="${table.id}" 
-            data-table-number="${tableIndex}">+</button>
+            data-table-ID="${table.id}">+</button>
 
         </div> 
             ${tasks}
@@ -259,9 +258,9 @@ function allowDrop(e) {
 function drop(e) {
     e.preventDefault();
     data = JSON.parse(e.dataTransfer.getData("text"))
-    // console.log(e.target);
-    current_data = e.target.dataset
-    console.log(data, current_data.tableNumber, "data");
+    console.log(e.target.dataset);
+    current_data = e.target.dataset.tableId != null ? e.target.dataset : e.target.parentNode.dataset
+    console.log(data, current_data.tableId, "data");
 
     if (data.type === "table") {
         shuffleTables(data.tableNumber, current_data.tableNumber)
