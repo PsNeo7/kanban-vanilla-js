@@ -113,12 +113,12 @@ main_table_area.addEventListener("click", (e) => {
     }
 
     if (e.target.dataset.type == "edit-table-button") {
-        editTable(e.target.dataset.tableId)
+        editTable(e.target.parentNode.dataset.tableId)
         // editTable(e.target.parentNode)
     }
 
     if (e.target.dataset.type == "delete-table-button") {
-        deleteMainTable(e.target.dataset.tableId)
+        deleteMainTable(e.target.parentNode.dataset.tableId)
         // editTable(e.target.parentNode)
     }
 })
@@ -209,14 +209,11 @@ function createTableInnerHTML(table, tableIndex) {
         draggable="true" class="task">
              <span class="desc">${element.desc}</span>
              <span class="options" data-table-ID="${table.id}" data-table-number="${tableIndex}" data-task-index="${index}">
-                <button data-table-ID="${table.id}" 
-                    data-task-index="${index}" 
+                <button
                     data-type="edit-task-button">Edit
                 </button> 
 
                 <button 
-                    data-table-ID="${table.id}" 
-                    data-task-index="${index}" 
                     data-type="del-task-button">Delete
                 </button>
              </span>
@@ -228,19 +225,15 @@ function createTableInnerHTML(table, tableIndex) {
     ondragstart="drag(event)" touchstart="drag(event)" 
     ondrop="drop(event)" ondragover="allowDrop(event)">
 
-        <div data-table-number="${tableIndex}" class="heading">
+        <div data-table-ID="${table.id}" data-table-number="${tableIndex}" class="heading">
         
-            <h1 data-table-ID="${table.id}" 
-            class="title">${table.name}</h1> 
+            <h1 class="title">${table.name}</h1> 
 
-            <button data-table-ID="${table.id}"
-            data-type="edit-table-button">Edit Name</button> 
+            <button data-type="edit-table-button">Edit Name</button> 
 
-            <button data-table-ID="${table.id}"
-            data-type="delete-table-button">Delete Table</button> 
+            <button data-type="delete-table-button">Delete Table</button> 
 
-            <button data-type="add-task-button" 
-            data-table-ID="${table.id}">+</button>
+            <button data-type="add-task-button">+</button>
 
         </div> 
             ${tasks}
