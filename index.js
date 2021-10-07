@@ -11,7 +11,7 @@ reset_data_button.addEventListener('click', (e) => {
     mainTables = defaultValues
     console.log("clicking remoce data");
     localStorage.removeItem("data")
-    render()
+    setStateToLocal()
 })
 
 createNewTable = () => {
@@ -59,18 +59,25 @@ mainTables = []
 
 defaultValues = [{ "name": "todo", "id": 1, "tasks": [{ "desc": "Hi" }] }, { "name": "Done", "id": 2, "tasks": [{ "desc": "Hello" }] }, { "name": "grooming", "id": 3, "tasks": [] }]
 
-function getDataFromLocal() {
+function getStateFromLocal() {
     if (localStorage.getItem("data")) {
         mainTables = JSON.parse(localStorage.getItem("data"))
+        tableCounter = mainTables.length
+        console.log("currentTableCounter ", tableCounter);
     } else {
         mainTables = defaultValues
     }
     console.log("getData from local being called", mainTables);
 }
 
-getDataFromLocal()
+getStateFromLocal()
+
+function setStateToLocal() {
+    localStorage.setItem("data", JSON.stringify(mainTables))
+}
 
 function render() {
+    setStateToLocal()
     console.log("render being called", mainTables);
     main_table_area.innerHTML = ""
     mainTables.forEach((element, tableIndex) => {
@@ -79,7 +86,6 @@ function render() {
         table.dataset.tableNumber = element.id
         main_table_area.append(table)
     });
-    localStorage.setItem("data", JSON.stringify(mainTables))
 }
 
 
@@ -202,7 +208,7 @@ function createTableInnerHTML(table, tableIndex) {
                     data-table-number="${tableIndex}" 
                     data-type="edit-task-button">Edit
                 </button> 
-                
+
                 <button 
                     data-table-ID="${table.id}" 
                     data-task-index="${index}" 
