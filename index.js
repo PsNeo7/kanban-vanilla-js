@@ -156,6 +156,7 @@ function delTaskInTable(tableID, taskID) {
 }
 
 function editTaskInTable(tableID, taskID) {
+    console.log("recived tableid and taskId as ", tableID, " ", taskID);
     mainTables.forEach(table => {
         if (table.id == tableID) {
             table.tasks.forEach((task, index) => {
@@ -202,7 +203,7 @@ function createTableInnerHTML(table, tableIndex) {
         data-table-number="${tableIndex}" 
         draggable="true" class="task">
              <span class="desc">${element.desc}</span>
-             <span class="options" data-table-number="${tableIndex}" data-task-index="${index}">
+             <span class="options" data-table-ID="${table.id}" data-table-number="${tableIndex}" data-task-index="${index}">
                 <button data-table-ID="${table.id}" 
                     data-task-index="${index}" 
                     data-table-number="${tableIndex}" 
