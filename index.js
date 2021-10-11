@@ -99,7 +99,7 @@ main_table_area.addEventListener("click", (e) => {
     if (e.target.dataset.type == "add-task-button") {
         newTodo = prompt("Enter Todo")
         if (newTodo) {
-            addTaskToTable(e.target.dataset.tableId, { desc: newTodo })
+            addTaskToTable(e.target.parentNode.dataset.tableId, { desc: newTodo })
         }
     }
 
@@ -178,7 +178,7 @@ function editTaskInTable(tableID, taskID) {
 }
 
 function addTaskToTable(tableID, newTodo) {
-    // console.log(tableID);
+    console.log(tableID);
     mainTables.forEach(table => {
         if (table.id == tableID) {
             table.tasks.push(newTodo)

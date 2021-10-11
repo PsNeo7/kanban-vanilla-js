@@ -1,49 +1,101 @@
 body {
-    /* background-color: yellow; */
+  /* background-color: yellow; */
 }
 
 .main-table-area {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .task-table {
-    /* background-color: black;
+  /* background-color: black;
     color: white; */
-    border: 1px solid black;
-    width: 300px;
-    padding: 10px;
-    background-color: yellow;
-    min-height: 200px;
-    margin: 10px;
+  border: 1px solid black;
+  width: 300px;
+  padding: 10px;
+  background-color: yellow;
+  min-height: 200px;
+  margin: 10px;
 }
 
 .heading {
-    text-align: center;
-    border: 1px solid black;
-    padding: 5px;
-    margin: 0;
-    background-color: deepskyblue;
+  text-align: center;
+  border: 1px solid black;
+  padding: 5px;
+  margin: 0;
+  background-color: deepskyblue;
 }
 
-.heading .title{
-    text-decoration: underline;
-    text-transform: capitalize;
-
+.heading .title {
+  text-decoration: underline;
+  text-transform: capitalize;
 }
 
 .task {
-    background-color: white;
-    padding: 10px 0px;
-    border: 1px solid black;
-    margin: 5px;
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    word-break: break-all;
+  background-color: white;
+  padding: 10px 0px;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  word-break: break-all;
 }
 
-.task .options{
-    flex-basis: 3;
+.task .options {
+  -ms-flex-preferred-size: 3;
+      flex-basis: 3;
 }
+
+.table-del-animation {
+  -webkit-animation: delete-table 1500ms ease-in-out;
+          animation: delete-table 1500ms ease-in-out;
+}
+
+@-webkit-keyframes delete-table {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    * {
+      background-color: transparent;
+    }
+  }
+  25% {
+    * {
+      background-color: red;
+    }
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+@keyframes delete-table {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    * {
+      background-color: transparent;
+    }
+  }
+  25% {
+    * {
+      background-color: red;
+    }
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+/*# sourceMappingURL=styles.css.map */
